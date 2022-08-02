@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 move;
     public float speed, jumpForce, gravity, verticalVelocity;
 
-    private bool wallSlide;
+    private bool wallSlide, turn;
 
     private bool doubleJump;
     private CharacterController charController;
@@ -38,6 +38,15 @@ public class PlayerController : MonoBehaviour
                 doubleJump = true;
                 Jump(jumpForce);
             }
+            if (turn)
+            {
+                turn = false;
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x
+                    ,transform.eulerAngles.y+180
+                    ,transform.eulerAngles.z
+                    );
+            }
+
         }
         else if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && doubleJump)
         {
@@ -67,7 +76,7 @@ public class PlayerController : MonoBehaviour
         move *= speed;
         move.y = verticalVelocity;
         charController.Move(move * Time.deltaTime);
-        print(wallSlide);
+        //print(wallSlide);
 
     }
 
@@ -101,6 +110,14 @@ public class PlayerController : MonoBehaviour
 
                     wallSlide = false;
                 }
+            }
+
+        }
+        else
+        {
+            if(transform.forward != hit.collider.transform.up && hit.collider.tag == "Ground" && !turn)
+            {
+                turn = true;
             }
 
         }
