@@ -13,10 +13,13 @@ public class PlayerController : MonoBehaviour
     private bool doubleJump;
     private CharacterController charController;
 
+    private Animator animator;
+
 
     void Start()
     {
         charController = GetComponent<CharacterController>();    
+        animator = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -33,11 +36,13 @@ public class PlayerController : MonoBehaviour
             {
                 verticalVelocity = jumpForce;
                 doubleJump = true;
+                Jump(jumpForce);
             }
         }
         else if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && doubleJump)
         {
-            verticalVelocity += jumpForce * 0.5f;
+            Debug.Log("hi");
+            Jump(jumpForce*0.75f);
             doubleJump = false;
         }
 
@@ -45,12 +50,17 @@ public class PlayerController : MonoBehaviour
         {
             gravity = 30;
             verticalVelocity -= gravity * Time.deltaTime;
+
         }
         else
         {
             gravity = 15;
             verticalVelocity -= gravity * Time.deltaTime;
+
         }
+
+        animator.SetBool("WallSlide",wallSlide);
+        animator.SetBool("Grounded",charController.isGrounded);
 
 
         move.Normalize();
@@ -59,6 +69,13 @@ public class PlayerController : MonoBehaviour
         charController.Move(move * Time.deltaTime);
         print(wallSlide);
 
+    }
+
+    private void Jump(float force)
+    {
+
+        animator.SetTrigger("Jump");
+        verticalVelocity = force;
     }
 
 
@@ -73,7 +90,7 @@ public class PlayerController : MonoBehaviour
                     wallSlide = true;
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
-                    verticalVelocity = jumpForce;
+                    Jump(jumpForce);
 
                     doubleJump = false;
 
