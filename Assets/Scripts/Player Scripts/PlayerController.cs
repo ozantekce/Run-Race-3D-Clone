@@ -50,7 +50,6 @@ public class PlayerController : MonoBehaviour
         }
         else if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && doubleJump)
         {
-            Debug.Log("hi");
             Jump(jumpForce*0.75f);
             doubleJump = false;
         }
