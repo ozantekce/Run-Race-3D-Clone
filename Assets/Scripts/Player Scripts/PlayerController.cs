@@ -25,6 +25,34 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
+
+        if (GameManager.instance.finish)
+        {
+
+            move = Vector3.zero;
+
+            if (!charController.isGrounded)
+            {
+                verticalVelocity -= gravity * Time.deltaTime;
+            }
+            else
+            {
+                verticalVelocity = 0;
+            }
+
+            move.y = verticalVelocity;
+            charController.Move(new Vector3 (0, move.y*Time.deltaTime,0));
+            
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Dance"))
+            {
+                animator.SetTrigger("Dance");
+                transform.eulerAngles = Vector3.up * 180;
+            }
+
+            return;
+        }
+
+
         move = Vector3.zero;
         move = transform.forward;
 

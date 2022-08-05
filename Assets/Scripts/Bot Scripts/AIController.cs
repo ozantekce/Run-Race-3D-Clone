@@ -25,6 +25,18 @@ public class AIController : MonoBehaviour
     void Update()
     {
 
+        if (GameManager.instance.finish)
+        {
+
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Dance"))
+            {
+                animator.SetTrigger("Dance");
+                transform.eulerAngles = Vector3.up * 180;
+            }
+
+            return;
+        }
+
         move = Vector3.zero;
         move = transform.forward;
 
