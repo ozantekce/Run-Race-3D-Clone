@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
 
     public int pass;
-    public bool finish;
+    public bool finish, failed;
 
 
     public string firstPlace, secondPlace, thirdPlace;
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
                 if (firstPlace == "")
                 {
                     firstPlace = sortArray[0].name;
-
+                    GameUI.instance.OpenLeaderboard();
                 }
                 inGame.secondPlaceImg.color = Color.red;
                 break;
@@ -96,7 +96,8 @@ public class GameManager : MonoBehaviour
                 {
                     if(rs.gameObject.name == "Player")
                     {
-                        
+                        GameUI.instance.OpenLeaderboard();
+                        failed = true;
                     }
 
                     if(thirdPlace == "")
