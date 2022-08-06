@@ -31,7 +31,7 @@ public class RankingSystem : MonoBehaviour
     {
 
         distance = Vector3.Distance(transform.position,checkPoint);
-        counter = lapCount * 1000 + currentCheckPoint * 100 + distance;
+        counter = lapCount * 1000 + currentCheckPoint * 200 + distance;
 
     }
 

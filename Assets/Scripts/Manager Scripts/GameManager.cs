@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
             print(runners[i].gameObject.name);
         }
     }
-    void Update()
+    void LateUpdate()
     {
         CalculatingRank();
     }
