@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
             {
                 if(rs.rank == sortArray.Count)
                 {
-                    if(rs.gameObject.name == "Player")
+                    if(rs.gameObject.name == PlayerPrefs.GetString("PlayerName"))
                     {
                         GameUI.instance.OpenLeaderboard();
                         failed = true;

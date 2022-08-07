@@ -15,12 +15,18 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
 
+    void Awake()
+    {
+        GetComponentInChildren<SkinnedMeshRenderer>().material.color = ColorSelectionManager.playerColor;
+
+    }
+
 
     void Start()
     {
         charController = GetComponent<CharacterController>();    
         animator = GetComponentInChildren<Animator>();
-
+        this.name = PlayerPrefs.GetString("PlayerName", "Player");
 
     }
 
