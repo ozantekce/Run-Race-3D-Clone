@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a92cdde01e019c49928c4edf3dfa8c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
+  speed: 30
   selectionPos: 15
   charParent: {fileID: 2056346671}
 --- !u!4 &346839157

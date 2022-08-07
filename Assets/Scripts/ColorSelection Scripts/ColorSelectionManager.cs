@@ -74,8 +74,8 @@ public class ColorSelectionManager : MonoBehaviour
             , cameraMain.transform.position.y, cameraMain.transform.position.z);
         while(cameraMain.transform.position.x < tempPos.x)
         {
-            cameraMain.transform.position = Vector3.MoveTowards(cameraMain.transform.position, tempPos, speed);
-            yield return new WaitForSeconds(Time.deltaTime*speed);
+            cameraMain.transform.position = Vector3.MoveTowards(cameraMain.transform.position, tempPos, speed*Time.deltaTime);
+            yield return new WaitForSeconds(Time.deltaTime);
         }
         cameraMain.transform.position = tempPos;
         waitForNext = false;
@@ -92,8 +92,8 @@ public class ColorSelectionManager : MonoBehaviour
             , cameraMain.transform.position.y, cameraMain.transform.position.z);
         while (cameraMain.transform.position.x > tempPos.x)
         {
-            cameraMain.transform.position = Vector3.MoveTowards(cameraMain.transform.position, tempPos, speed);
-            yield return new WaitForSeconds(Time.deltaTime * speed);
+            cameraMain.transform.position = Vector3.MoveTowards(cameraMain.transform.position, tempPos, speed*Time.deltaTime);
+            yield return new WaitForSeconds(Time.deltaTime);
         }
         cameraMain.transform.position = tempPos;
         waitForPrev = false;
