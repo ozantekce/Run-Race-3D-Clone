@@ -22,7 +22,7 @@ public class GameUI : MonoBehaviour
 
     void Update()
     {
-
+        
         if (GameManager.instance.failed)
         {
             if (leaderboard.activeInHierarchy)
@@ -31,7 +31,7 @@ public class GameUI : MonoBehaviour
                 Restart();
             }
         }
-
+        
     }
 
 
@@ -55,10 +55,16 @@ public class GameUI : MonoBehaviour
 
     public void OpenLeaderboard()
     {
-
+        
         inGame.SetActive(false);
         leaderboard.SetActive(true);
-        
+
+    }
+
+    private IEnumerator SetNextButton()
+    {
+        yield return new WaitUntil(()=>leaderboard.activeInHierarchy);
+
     }
 
     private void Restart()
@@ -66,10 +72,14 @@ public class GameUI : MonoBehaviour
 
         nextLevel = GameObject.Find("/GameUI/LeaderboardPanel/NextLevel").GetComponent<Button>();
         nextLevel.onClick.RemoveAllListeners();
-        nextLevel.onClick.AddListener(()=>Reload());
+        nextLevel.onClick.AddListener(() => Reload());
         nextLevel.transform.GetChild(0).GetComponent<Text>().text = "Again";
 
     }
+
+
+
+
 
     private void Reload()
     {
@@ -80,8 +90,11 @@ public class GameUI : MonoBehaviour
 
     public void NextLevel()
     {
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        Debug.Log("1 : " + (SceneManager.sceneCountInBuildSettings - 1) + " 2: " + SceneManager.GetActiveScene().buildIndex);
+        if(SceneManager.sceneCountInBuildSettings-1 == SceneManager.GetActiveScene().buildIndex)
+            Exit();
+        else
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
 
     }
 

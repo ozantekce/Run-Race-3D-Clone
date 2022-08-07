@@ -22,6 +22,7 @@ public class RankingSystem : MonoBehaviour
 
     void Update()
     {
+
         CalculateDistance();
 
     }
