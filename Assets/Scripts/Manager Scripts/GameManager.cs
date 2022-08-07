@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
 
     public int pass;
-    public bool finish, failed;
+    public bool finish, failed, start;
 
 
     public string firstPlace, secondPlace, thirdPlace;

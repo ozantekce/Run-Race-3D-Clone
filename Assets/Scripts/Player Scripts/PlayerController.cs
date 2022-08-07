@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 move;
     public float speed, jumpForce, gravity, verticalVelocity;
 
-    private bool wallSlide, turn;
+    private bool wallSlide, turn, superJump;
 
     private bool doubleJump;
     private CharacterController charController;
@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     {
         charController = GetComponent<CharacterController>();    
         animator = GetComponentInChildren<Animator>();
+
+
     }
 
     void Update()
@@ -52,6 +54,9 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        if (!GameManager.instance.start)
+            return;
+
 
         move = Vector3.zero;
         move = transform.forward;
@@ -75,11 +80,22 @@ public class PlayerController : MonoBehaviour
                     );
             }
 
+
+
         }
         else if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && doubleJump)
         {
             Jump(jumpForce*0.75f);
             doubleJump = false;
+        }
+
+
+
+        if (superJump)
+        {
+            superJump = false;
+            verticalVelocity = jumpForce * 1.75f;
+            animator.SetTrigger("Jump");
         }
 
         if (!wallSlide)
@@ -142,11 +158,18 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+
+            if(hit.collider.CompareTag("Trampoline") && charController.isGrounded)
+            {
+                superJump = true;
+            }
+
+            /*
             if(transform.forward != hit.collider.transform.up && hit.collider.tag == "Ground" && !turn)
             {
                 turn = true;
             }
-
+            */
         }
 
     }

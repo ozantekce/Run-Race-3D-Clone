@@ -12,10 +12,12 @@ public class GameUI : MonoBehaviour
 
     private Button nextLevel;
 
+    public Text countText;
 
     void Awake()
     {
         instance = this;
+        StartCoroutine(StartGame());
     }
 
     void Update()
@@ -32,6 +34,24 @@ public class GameUI : MonoBehaviour
 
     }
 
+
+    private IEnumerator StartGame()
+    {
+
+        Color[] colors = { Color.magenta, Color.yellow, Color.green };
+        for (int i = 3; i >= 1; i--)
+        {
+            
+            countText.text = i.ToString();
+            yield return new WaitForSeconds(1);
+            countText.color = colors[colors.Length - i];
+        }
+        countText.text = "GO";
+        GameManager.instance.start = true;
+        yield return new WaitForSeconds(0.5f);
+        countText.gameObject.SetActive(false);
+
+    }
 
     public void OpenLeaderboard()
     {
